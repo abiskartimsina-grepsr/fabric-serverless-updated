@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Stack containing all implementations for the amazon website along with the required layers.
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  RequestHandlerLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: request-handler-layer
+      Description: "Python based request handler for serverless scrapers."
+      ContentUri: request-handler/
+      CompatibleRuntimes:
+        - python3.13
+    Metadata:
+      BuildMethod: python3.13
