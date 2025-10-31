@@ -3,8 +3,8 @@
 import aiohttp
 from typing import Dict, Final, Optional, Any
 
-from proxy.handler import ProxyHandler
-from options.options import RequestHandlerOptions
+from request_handler.proxy import ProxyHandler
+from request_handler.options import RequestHandlerOptions
 
 from dataclasses import dataclass
 

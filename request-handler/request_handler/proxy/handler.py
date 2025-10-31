@@ -3,7 +3,7 @@
 from typing import Optional, TypedDict
 from enum import StrEnum
 
-from .proxy_providers import ProxyVendors, ProxyProvider
+from request_handler.proxy.proxy_providers import ProxyVendors, ProxyProvider
 
 
 class CurrentProxy(TypedDict):

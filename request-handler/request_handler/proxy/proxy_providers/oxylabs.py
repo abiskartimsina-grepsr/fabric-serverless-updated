@@ -1,4 +1,4 @@
-from .abstract.provider import ProxyProviderAbstract
+from request_handler.proxy.proxy_providers.abstract.provider import ProxyProviderAbstract
 from typing import Dict
 
 

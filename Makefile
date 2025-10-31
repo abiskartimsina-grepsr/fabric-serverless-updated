@@ -4,7 +4,7 @@ ENV_VAR = env.json
 # STG Deployments
 REGION = us-east-1
 BUCKET = fabric-api-stg-cloudformation
-CF_STACK = amazon-domain-stack
+CF_STACK = fabric-amazon-domain-stack
 DEPLOY_PROFILE = staging
 
 .PHONY: run build start invoke deploy-stg validate-template
@@ -15,8 +15,7 @@ start:
 	@sam local start-lambda
 
 build:
-	@sam build --use-container 	# --use-container is important since it bundles the layers and the functions together, if excluded, it causes issue with importing the layer
-
+	@sam build
 
 invoke:
 	@sam local invoke $(FUNCTION_NAME) --env-vars $(ENV_VAR) --profile $(PROFILE)

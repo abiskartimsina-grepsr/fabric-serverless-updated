@@ -18,3 +18,24 @@ Resources:
         - python3.13
     Metadata:
       BuildMethod: python3.13
+
+  AmazonPdpFunction:
+    Type: AWS::Serverless::Function
+    Description: "Python based function to scrape and collect pdp data from amazon; all-domains"
+    FunctionName: fabric-amazon-pdp
+    Properties:
+      CodeUri: amazon-pdp/
+      Handler: main.entrypoint
+      Runtime: python3.13
+      Architectures:
+        - x86_64
+      Layers:
+        - Ref: RequestHandlerLayer
+      Environment:
+        Variables:
+          # Need to add these to ensure that --env-vars loads the required envs
+          BD_PROXY_USERNAME: ""
+          BD_PROXY_PASSWORD: ""
+          BD_PROXY_HOSTNAME: ""
+          BD_PROXY_PORT: ""
+      # Role: "TODO"

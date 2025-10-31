@@ -1,5 +1,5 @@
-from .brightdata import BrightdataProxy
-from .oxylabs import OxylabsProxy
+from request_handler.proxy.proxy_providers.brightdata import BrightdataProxy
+from request_handler.proxy.proxy_providers.oxylabs import OxylabsProxy
 from enum import StrEnum
 from typing import Any, Optional, Union
 
