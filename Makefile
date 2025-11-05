@@ -12,7 +12,7 @@ DEPLOY_PROFILE = staging
 default: build
 
 start:
-	@sam local start-lambda
+	@sam local start-lambda --env-vars $(ENV_VAR)
 
 build:
 	@sam build
