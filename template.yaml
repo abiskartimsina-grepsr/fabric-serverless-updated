@@ -34,8 +34,5 @@ Resources:
       Environment:
         Variables:
           # Need to add these to ensure that --env-vars loads the required envs
-          BD_PROXY_USERNAME: ""
-          BD_PROXY_PASSWORD: ""
-          BD_PROXY_HOSTNAME: ""
-          BD_PROXY_PORT: ""
-      # Role: "TODO"
+          BD_PROXY_CREDS: ""
+      Role: "arn:aws:iam::568891737639:role/iam_for_lambda"

@@ -3,6 +3,7 @@ from typing import Dict, TypedDict, Union
 import os
 from uuid import uuid4
 import copy
+import json
 
 
 class _ProxyDetails(TypedDict):
@@ -20,11 +21,12 @@ class BrightdataProxy(ProxyProviderAbstract):
         super().__init__()
         self.__country: str = "US"
         self.__zone: str = "grepsr"
+        self.secure_credentials = json.loads(os.getenv("BD_PROXY_CREDS",{}))
         self.__proxy_details = _ProxyDetails(
-            username=os.getenv("BD_PROXY_USERNAME"),
-            password=os.getenv("BD_PROXY_PASSWORD"),
-            hostname=os.getenv("BD_PROXY_HOSTNAME"),
-            port=os.getenv("BD_PROXY_PORT"),
+            username=self.secure_credentials.get("BD_PROXY_USERNAME"),
+            password=self.secure_credentials.get("BD_PROXY_PASSWORD"),
+            hostname=self.secure_credentials.get("BD_PROXY_HOSTNAME"),
+            port=self.secure_credentials.get("BD_PROXY_PORT"),
             country=self.country,
             proxy_zone=self.zone,
             provider=self.vendor_name(),
