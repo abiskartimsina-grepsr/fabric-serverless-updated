@@ -1,10 +1,22 @@
-from request_handler.proxy.proxy_providers.abstract.provider import ProxyProviderAbstract
+from request_handler.proxy.proxy_providers.abstract.provider import (
+    ProxyProviderAbstract,
+)
 from typing import Dict, TypedDict, Union
-import os
 from uuid import uuid4
 import copy
+import boto3
 import json
 
+
+def get_ssm_parameter(parameter_name:str="/grepsr/fabric-api/lambda/stage/credentials"):
+    ssm = boto3.client('ssm')
+    try:
+        # Fetch the secure parameter from SSM
+        response = ssm.get_parameter(Name=parameter_name, WithDecryption=True)
+        return json.loads(response['Parameter']['Value'])
+    except Exception as e:
+        print(f"Error fetching SSM parameter {parameter_name}: {str(e)}")
+        raise e
 
 class _ProxyDetails(TypedDict):
     username: str
@@ -21,7 +33,7 @@ class BrightdataProxy(ProxyProviderAbstract):
         super().__init__()
         self.__country: str = "US"
         self.__zone: str = "grepsr"
-        self.secure_credentials = json.loads(os.getenv("BD_PROXY_CREDS",{}))
+        self.secure_credentials = json.loads(get_ssm_parameter()['BD_PROXY_CREDS'])
         self.__proxy_details = _ProxyDetails(
             username=self.secure_credentials.get("BD_PROXY_USERNAME"),
             password=self.secure_credentials.get("BD_PROXY_PASSWORD"),
